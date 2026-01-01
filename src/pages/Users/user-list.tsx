@@ -17,6 +17,7 @@ interface User {
   profilePicture: string | null;
   role: string;
   provider: string;
+  dateOfBirth: string | null;
   createdAt: string;
   lastLogin: string | null;
   lastLogout: string | null;
@@ -103,6 +104,22 @@ export default function UserList() {
         accessorKey: 'phone',
         enableColumnFilter: false,
         enableSorting: true,
+      },
+      {
+        header: 'Date of Birth',
+        accessorKey: 'dateOfBirth',
+        enableColumnFilter: false,
+        enableSorting: true,
+        cell: (cellProps: any) => {
+          const dateOfBirth = cellProps.getValue();
+          if (!dateOfBirth) return <span className="text-muted">N/A</span>;
+          
+          return (
+            <span>
+              {new Date(dateOfBirth).toLocaleDateString()}
+            </span>
+          );
+        },
       },
       {
         header: 'Role',
